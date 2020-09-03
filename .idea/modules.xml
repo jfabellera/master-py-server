@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../auto-covid-survey/.idea/auto-covid-survey.iml" filepath="$PROJECT_DIR$/../auto-covid-survey/.idea/auto-covid-survey.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/master-py-server.iml" filepath="$PROJECT_DIR$/.idea/master-py-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../osrs-account-locker/.idea/osrs-account-locker.iml" filepath="$PROJECT_DIR$/../osrs-account-locker/.idea/osrs-account-locker.iml" />
+    </modules>
+  </component>
+</project>
