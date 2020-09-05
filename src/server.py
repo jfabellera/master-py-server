@@ -4,7 +4,7 @@ import threading
 from queue import Queue
 import select
 
-HEADERSIZE = 10
+HEADER_SIZE = 10
 NUMBER_OF_THREADS = 3
 JOB_NUMBER = [1, 2, 3]
 queue = Queue()
@@ -14,7 +14,6 @@ all_address = []
 
 def open_socket():
     global s
-
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((socket.gethostname(), 5001))
@@ -75,7 +74,7 @@ def create_jobs():
 
 
 def send_msg(client_socket, msg):
-    msg = f'{len(msg):<{HEADERSIZE}}' + msg
+    msg = f'{len(msg):<{HEADER_SIZE}}' + msg
     client_socket.send(bytes(msg, 'utf-8'))
 
 
@@ -84,7 +83,7 @@ def ping():
         time.sleep(1)
         for i in range(len(all_connections)):
             try:
-                send_msg(all_connections[i], f'hi {all_address[i]}')
+                send_msg(all_connections[i], f'server wave to {all_address[i]}')
             except socket.error:
                 print(f'Lost connection with: {all_address[i]}')
                 all_connections.pop(i)
@@ -104,11 +103,11 @@ def listen():
                 try:
                     msg = conn.recv(16)
                     if new_msg:
-                        msg_len = int(msg[:HEADERSIZE])
+                        msg_len = int(msg[:HEADER_SIZE])
                         new_msg = False
                     full_msg += msg.decode('utf-8')
-                    if len(full_msg) - HEADERSIZE == msg_len:
-                        print(full_msg[HEADERSIZE:])
+                    if len(full_msg) - HEADER_SIZE == msg_len:
+                        print(full_msg[HEADER_SIZE:])
                         break
                 except socket.error:
                     # should be handled by ping thread
