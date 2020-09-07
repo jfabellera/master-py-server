@@ -39,6 +39,7 @@ def send():
                     s.connect((socket.gethostname(), 5001))
                     connected = True
                     send_msg(s, f'n/{CLIENT_NAME}')
+                    msg_queue.queue.clear()
                     print('Re-connected')
                 except socket.error:
                     print('Disconnected. Trying to re-connect.')

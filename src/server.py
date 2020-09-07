@@ -94,7 +94,6 @@ def ping():
 def listen():
     while True:
         for conn in all_connections:
-            # print(conn)
             ready = select.select([conn], [], [], 1)
             msg_len = -1
             new_msg = True
@@ -103,10 +102,13 @@ def listen():
                 try:
                     msg = conn.recv(16)
                     if new_msg:
-                        msg_len = int(msg[:HEADER_SIZE])
+                        try:
+                            msg_len = int(msg[:HEADER_SIZE])
+                        except ValueError:
+                            break
                         new_msg = False
                     full_msg += msg.decode('utf-8')
-                    if len(full_msg) - HEADER_SIZE == msg_len:
+                    if len(full_msg) - HEADER_SIZE >= msg_len:
                         print(full_msg[HEADER_SIZE:])
                         break
                 except socket.error:
